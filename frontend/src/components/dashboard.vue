@@ -28,7 +28,8 @@
     </div>
     <!--https://vue-chartjs.org/guide/#creating-your-first-chart-->
     <h2>{{this.queryData}}</h2>
-    <h2>{{this.queryData}}</h2>
+    <h2>{{this.test}}</h2>
+    <h2>{{this.chartData.datasets[0].data}} !!</h2>
     <Bar
     :chart-options="chartOptions"
     :chart-data="chartData"
@@ -64,11 +65,11 @@ export default {
     },
     width: {
       type: Number,
-      default: 400
+      default: 200
     },
     height: {
       type: Number,
-      default: 400
+      default: 200
     },
     cssClasses: {
       default: '',
@@ -86,6 +87,7 @@ export default {
   data() {
     return {
       queryData: [],
+      test:[],
       chartData: {
         labels: [ ],
         datasets: [ { data: [] } ]
@@ -102,9 +104,9 @@ export default {
       this.queryData = resp.data;
       for (let i=0;i<this.queryData.length;i++){
         this.chartData.labels.push(this.queryData[i].eventName);
-        //working on this part - getting number of attendees onto the data []
-        //this.data = this.queryData.map((i)=>i.attendees);
+        this.test.push(this.queryData[i].attendees);
       }
+      this.chartData.datasets[0].data=this.test;
 
     });
     window.scrollTo(0, 0);

@@ -2,6 +2,7 @@
   <main>
     <div>
       <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">Welcome</h1>
+      <br>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
       <div class="ml-10">
       </div>
@@ -25,22 +26,86 @@
       </div>
     </div>
     </div>
+    <!--https://vue-chartjs.org/guide/#creating-your-first-chart-->
+    <h2>{{this.queryData}}</h2>
+    <h2>{{this.queryData}}</h2>
+    <Bar
+    :chart-options="chartOptions"
+    :chart-data="chartData"
+    :chart-id="chartId"
+    :dataset-id-key="datasetIdKey"
+    :plugins="plugins"
+    :css-classes="cssClasses"
+    :styles="styles"
+    :width="width"
+    :height="height"
+  />
   </main>
 </template>
 <script>
 import { DateTime } from "luxon";
 import axios from "axios";
+import { Bar } from 'vue-chartjs';
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
 export default {
+  name: 'BarChart',
+  components: { Bar },
+  props: {
+    chartId: {
+      type: String,
+      default: 'bar-chart'
+    },
+    datasetIdKey: {
+      type: String,
+      default: 'label'
+    },
+    width: {
+      type: Number,
+      default: 400
+    },
+    height: {
+      type: Number,
+      default: 400
+    },
+    cssClasses: {
+      default: '',
+      type: String
+    },
+    styles: {
+      type: Object,
+      default: () => {}
+    },
+    plugins: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
-      queryData: []
-    };
+      queryData: [],
+      chartData: {
+        labels: [ ],
+        datasets: [ { data: [] } ]
+      },
+      chartOptions: {
+        responsive: true
+      }
+    }
   },
   mounted() {
     let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/recentEvent/`;
     this.queryData = [];
     axios.get(apiURL).then((resp) => {
       this.queryData = resp.data;
+      for (let i=0;i<this.queryData.length;i++){
+        this.chartData.labels.push(this.queryData[i].eventName);
+        //working on this part - getting number of attendees onto the data []
+        //this.data = this.queryData.map((i)=>i.attendees);
+      }
+
     });
     window.scrollTo(0, 0);
   },

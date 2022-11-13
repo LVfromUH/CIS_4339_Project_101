@@ -195,6 +195,7 @@
               type="submit"
               class="bg-red-700 text-white rounded"
             >Update Event</button>
+            <!--Delete button for deleting events-->
             <button
               @click="handleEventDelete"
               type="submit"
@@ -325,6 +326,7 @@ export default {
         });
       });
     },
+    //setting up delete function for button
     handleEventDelete() {
       this.event.services = this.checkedServices;
       let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/${this.id}`;

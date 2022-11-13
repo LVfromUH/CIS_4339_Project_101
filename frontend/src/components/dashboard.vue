@@ -27,9 +27,7 @@
     </div>
     </div>
     <!--https://vue-chartjs.org/guide/#creating-your-first-chart-->
-    <h2>{{this.queryData}}</h2>
-    <h2>{{this.test}}</h2>
-    <h2>{{this.chartData.datasets[0].data}} !!</h2>
+ <br>
     <Bar
     :chart-options="chartOptions"
     :chart-data="chartData"
@@ -44,6 +42,7 @@
   </main>
 </template>
 <script>
+
 import { DateTime } from "luxon";
 import axios from "axios";
 import { Bar } from 'vue-chartjs';
@@ -97,13 +96,16 @@ export default {
       }
     }
   },
+  //gets data from recentEvent endpoint
   mounted() {
     let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/recentEvent/`;
     this.queryData = [];
     axios.get(apiURL).then((resp) => {
       this.queryData = resp.data;
       for (let i=0;i<this.queryData.length;i++){
+        //appends event names to x axis
         this.chartData.labels.push(this.queryData[i].eventName);
+        //appends attendee count to y axis
         this.test.push(this.queryData[i].attendees);
       }
       this.chartData.datasets[0].data=this.test;

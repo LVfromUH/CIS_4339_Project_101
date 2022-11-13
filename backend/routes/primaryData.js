@@ -106,4 +106,12 @@ router.delete("/:id", (req, res, next) => {
     );
 });
 
+//getting organizaiton name and bringing it to front end
+router.get("/orgName",(req,res,next)=>
+{
+            res.json(process.env.organization)
+
+});
+
+
 module.exports = router;

@@ -49,7 +49,7 @@
         "
       >
       <!--Lori Vo. want to change according to what organization is using database-->
-        <h1 class="mr-20 text-3xl text-white">{{this.getHeader()}}</h1>
+        <h1 class="mr-20 text-3xl text-white">{{this.orgName}}</h1>
       </section>
       <div>
         <router-view></router-view>
@@ -59,14 +59,22 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "App",
-  methods:{
-  getHeader:function(){
-    //https://vitejs.dev/guide/env-and-mode.html
-    let getOrganization = import.meta.env.VITE_ORGANIZATION;
-    return getOrganization;
-  }}
+  data(){
+    return{
+      orgName: ''
+    }
+  },
+  //changes header to what is shown on the backend's env
+  beforeMount(){
+    axios.get(import.meta.env.VITE_ROOT_API+'/primarydata/orgName').then((res)=>{
+      this.orgName = res.data
+    })
+  },
+
 };
 </script>
 

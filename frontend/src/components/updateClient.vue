@@ -104,6 +104,7 @@ export default {
         });
       });
     },
+    //delete function for the button
     handleClientDelete() {
       let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
       axios.delete(apiURL, this.client).then(() => {
@@ -340,6 +341,7 @@ export default {
               type="submit"
               class="bg-red-700 text-white rounded"
             >Update Client</button>
+            <!--button to delete clients-->
             <button
               @click="handleClientDelete"
               type="submit"

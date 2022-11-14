@@ -27,6 +27,7 @@
     </div>
     </div>
     <!--https://vue-chartjs.org/guide/#creating-your-first-chart-->
+
  <br>
     <Bar
     :chart-options="chartOptions"
@@ -39,6 +40,7 @@
     :width="width"
     :height="height"
   />
+
   </main>
 </template>
 <script>
@@ -64,11 +66,11 @@ export default {
     },
     width: {
       type: Number,
-      default: 200
+      default: 150
     },
     height: {
       type: Number,
-      default: 200
+      default: 400
     },
     cssClasses: {
       default: '',
@@ -89,10 +91,21 @@ export default {
       test:[],
       chartData: {
         labels: [ ],
-        datasets: [ { data: [] } ]
+        datasets: [ { data: [], backgroundColor:'#C8102E' } ]
       },
       chartOptions: {
-        responsive: true
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        responsive: true,
+        maintainAspectRatio:false,
+        scales:{
+          y:{
+            ticks:{precision:0}
+          }
+        }
       }
     }
   },

@@ -177,7 +177,11 @@ router.get('/recentEvent/', (req, res, next) => {
     var twomonths = new Date();
     today.setMonth(today.getMonth() - 2);   //establish two months prior
 
-    eventdata.aggregate([
+    eventdata.aggregate([{
+        //https://www.mongodb.com/docs/manual/aggregation/
+        //filtering for organization name first
+        $match:{organization: process.env.organization}
+    },
         //returns only event name, date, and amount of attendees
         {$project:{_id:0, eventName:1, date:1, attendees:{$size:"$attendees"}}},
     { $match : { date : {

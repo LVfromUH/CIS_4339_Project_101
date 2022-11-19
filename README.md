@@ -23,5 +23,7 @@ Follow instructions in frontend README
 ## Cloud Deployment
 
 DB: `mongodb+srv://student:professor@cluster0.chobn7e.mongodb.net/eventorganizer`
+
 API: <https://cis4339eventorganizer.herokuapp.com/primaryData/>
+
 App: <https://delightful-plant-06537b91e.2.azurestaticapps.net/>

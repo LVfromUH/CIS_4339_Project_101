@@ -195,7 +195,7 @@ router.get('/recentEvent/', (req, res, next) => {
         } else {
           res.json(data);
         }
-    });
+    }).sort({date:1});
   });
 
 module.exports = router;
